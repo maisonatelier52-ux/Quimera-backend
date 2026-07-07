@@ -17,6 +17,7 @@ import { SurveysModule } from './surveys/surveys.module';
 import { DashboardModule } from './dashboard/dashboard.module';
 import { ArticleSettingsModule } from './article-settings/article-settings.module';
 import { HeaderModule } from './header/header.module';
+import { CommentsModule } from './comments/comments.module';
 @Module({
   imports: [
     ServeStaticModule.forRoot({
@@ -40,6 +41,7 @@ import { HeaderModule } from './header/header.module';
     DashboardModule,
     ArticleSettingsModule,
     HeaderModule,
+    CommentsModule,
   ],
   controllers: [AppController],
   providers: [AppService],

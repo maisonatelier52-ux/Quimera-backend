@@ -22,6 +22,9 @@ export class Comment {
 
   @Prop({ type: Types.ObjectId, ref: 'Comment', default: null })
   parentId: Types.ObjectId;
+
+  @Prop({ default: 'pending', enum: ['pending', 'approved'] })
+  status: string;
 }
 
 export const CommentSchema = SchemaFactory.createForClass(Comment);

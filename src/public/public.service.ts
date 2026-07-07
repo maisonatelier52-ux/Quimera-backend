@@ -94,7 +94,7 @@ export class PublicService {
   }
 
   async getCommentsBySlug(articleSlug: string) {
-    const comments = await this.commentModel.find({ articleSlug }).sort({ createdAt: 1 }).exec();
+    const comments = await this.commentModel.find({ articleSlug, status: 'approved' }).sort({ createdAt: 1 }).exec();
     
     // Convert flat list to tree
     const commentMap = new Map();
