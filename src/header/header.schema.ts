@@ -11,11 +11,20 @@ export class Header {
   @Prop({ default: '#09365E' })
   topBarBgColor: string;
 
+  @Prop({ default: '#FFFFFF' })
+  topBarTextColor: string;
+
   @Prop({ default: '#000000' })
   navbarBgColor: string;
 
+  @Prop({ default: '#FFFFFF' })
+  navbarTextColor: string;
+
   @Prop({ default: '#09365E' })
   tickerBgColor: string;
+
+  @Prop({ default: '#FFFFFF' })
+  tickerTextColor: string;
 
   @Prop({ default: 'QUIMERA' })
   logoText: string;

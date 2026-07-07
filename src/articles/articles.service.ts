@@ -12,7 +12,7 @@ export class ArticlesService {
   }
 
   async findOne(id: string) {
-    return this.articleModel.findById(id).exec();
+    return this.articleModel.findById(id).populate('category', 'name').exec();
   }
 
   async create(createArticleDto: any) {

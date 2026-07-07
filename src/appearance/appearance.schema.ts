@@ -14,6 +14,12 @@ export class Appearance {
   @Prop({ default: '#E12A32' })
   primaryAccentColor: string;
 
+  @Prop({ default: '#333333' })
+  globalTextColor: string;
+
+  @Prop({ default: 'sans-serif' })
+  globalFontFamily: string;
+
   @Prop({ type: [String], default: ['HomeHero', 'JustIn', 'FeaturedStories', 'NewsStrip', 'QuickLinks', 'BusinessSection', 'AdvertisementSection', 'WhatToRead', 'TheLatest', 'CategoryAd', 'MoreNews'] })
   homeLayout: string[];
 
