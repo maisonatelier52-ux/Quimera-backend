@@ -63,4 +63,19 @@ export class PublicController {
   async getArticleSettings() {
     return this.publicService.getArticleSettings();
   }
+
+  @Get('articles/:slug/comments')
+  async getComments(@Param('slug') slug: string) {
+    return this.publicService.getCommentsBySlug(slug);
+  }
+
+  @Post('articles/:slug/comments')
+  async addComment(@Param('slug') slug: string, @Body() body: any) {
+    return this.publicService.addComment(slug, body);
+  }
+
+  @Post('subscribe')
+  async subscribe(@Body() body: { name: string; email: string }) {
+    return this.publicService.subscribe(body.name, body.email);
+  }
 }

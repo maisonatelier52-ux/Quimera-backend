@@ -10,6 +10,8 @@ import { Footer, FooterSchema } from '../footer/footer.schema';
 import { MoodSurvey, MoodSurveySchema } from '../surveys/mood-survey.schema';
 import { Author, AuthorSchema } from '../authors/author.schema';
 import { ArticleSettings, ArticleSettingsSchema } from '../article-settings/article-settings.schema';
+import { Comment, CommentSchema } from './comment.schema';
+import { Subscriber, SubscriberSchema } from './subscriber.schema';
 
 @Module({
   imports: [
@@ -22,6 +24,8 @@ import { ArticleSettings, ArticleSettingsSchema } from '../article-settings/arti
       { name: MoodSurvey.name, schema: MoodSurveySchema },
       { name: Author.name, schema: AuthorSchema },
       { name: ArticleSettings.name, schema: ArticleSettingsSchema },
+      { name: Comment.name, schema: CommentSchema },
+      { name: Subscriber.name, schema: SubscriberSchema },
     ]),
   ],
   controllers: [PublicController],

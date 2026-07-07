@@ -9,6 +9,9 @@ import { Footer, FooterDocument } from '../footer/footer.schema';
 import { MoodSurvey, MoodSurveyDocument } from '../surveys/mood-survey.schema';
 import { Author, AuthorDocument } from '../authors/author.schema';
 import { ArticleSettings, ArticleSettingsDocument } from '../article-settings/article-settings.schema';
+import { Comment, CommentDocument } from './comment.schema';
+import { Subscriber, SubscriberDocument } from './subscriber.schema';
+import { ForbiddenException } from '@nestjs/common';
 
 @Injectable()
 export class PublicService {
@@ -21,6 +24,8 @@ export class PublicService {
     @InjectModel(MoodSurvey.name) private surveyModel: Model<MoodSurveyDocument>,
     @InjectModel(Author.name) private authorModel: Model<AuthorDocument>,
     @InjectModel(ArticleSettings.name) private articleSettingsModel: Model<ArticleSettingsDocument>,
+    @InjectModel(Comment.name) private commentModel: Model<CommentDocument>,
+    @InjectModel(Subscriber.name) private subscriberModel: Model<SubscriberDocument>,
   ) {}
 
   async getPublishedArticles(categorySlug?: string) {
@@ -86,5 +91,60 @@ export class PublicService {
       settings = await this.articleSettingsModel.create({});
     }
     return settings;
+  }
+
+  async getCommentsBySlug(articleSlug: string) {
+    const comments = await this.commentModel.find({ articleSlug }).sort({ createdAt: 1 }).exec();
+    
+    // Convert flat list to tree
+    const commentMap = new Map();
+    const roots: any[] = [];
+    
+    comments.forEach(c => {
+      const plain = c.toObject() as any;
+      plain.replies = [];
+      commentMap.set(plain._id.toString(), plain);
+    });
+    
+    comments.forEach(c => {
+      const plain = commentMap.get(c._id.toString());
+      if (c.parentId) {
+        const parent = commentMap.get(c.parentId.toString());
+        if (parent) {
+          parent.replies.push(plain);
+        } else {
+          roots.push(plain);
+        }
+      } else {
+        roots.push(plain);
+      }
+    });
+    
+    return roots;
+  }
+
+  async addComment(articleSlug: string, data: any) {
+    if (!data.email) {
+      throw new ForbiddenException('Email is required to post a comment');
+    }
+
+    const subscriber = await this.subscriberModel.findOne({ email: data.email }).exec();
+    if (!subscriber) {
+      throw new ForbiddenException('You must be subscribed to post a comment');
+    }
+
+    const newComment = new this.commentModel({
+      ...data,
+      articleSlug,
+    });
+    return newComment.save();
+  }
+
+  async subscribe(name: string, email: string) {
+    let subscriber = await this.subscriberModel.findOne({ email }).exec();
+    if (!subscriber) {
+      subscriber = await this.subscriberModel.create({ name, email });
+    }
+    return subscriber;
   }
 }
