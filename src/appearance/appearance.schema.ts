@@ -25,6 +25,18 @@ export class Appearance {
 
   @Prop({ type: [String], default: ['ArticleHeader', 'ArticleContent', 'RelatedArticles', 'Comments'] })
   articleLayout: string[];
+
+  @Prop({ default: '/images/adv2.png' })
+  homeAdImage: string;
+
+  @Prop({ default: '#' })
+  homeAdLink: string;
+
+  @Prop({ default: '/images/adv.png' })
+  categoryAdImage: string;
+
+  @Prop({ default: '#' })
+  categoryAdLink: string;
 }
 
 export const AppearanceSchema = SchemaFactory.createForClass(Appearance);
