@@ -8,7 +8,7 @@ import * as dotenv from 'dotenv';
 dotenv.config();
 
 cloudinary.config({
-  cloud_name: 'Root',
+  cloud_name: 'osergldw',
   api_key: '674313959543328',
   api_secret: 'jB91AjlM2ncfzBowBYzevDxEYNM',
 });
