@@ -31,6 +31,15 @@ export class Article {
 
   @Prop({ type: Array })
   content: any[];
+
+  @Prop({ default: '' })
+  seoTitle: string;
+
+  @Prop({ default: '' })
+  seoDescription: string;
+
+  @Prop({ default: '' })
+  keywords: string;
 }
 
 export const ArticleSchema = SchemaFactory.createForClass(Article);

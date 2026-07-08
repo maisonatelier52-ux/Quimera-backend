@@ -78,6 +78,9 @@ export class Page {
   seoDescription: string;
 
   @Prop({ default: '' })
+  keywords: string;
+
+  @Prop({ default: '' })
   ogImage: string;
 
   @Prop({ default: '' })

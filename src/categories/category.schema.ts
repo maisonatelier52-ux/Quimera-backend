@@ -22,6 +22,15 @@ export class Category {
 
   @Prop({ default: true })
   isVisible: boolean;
+
+  @Prop({ default: '' })
+  seoTitle: string;
+
+  @Prop({ default: '' })
+  seoDescription: string;
+
+  @Prop({ default: '' })
+  keywords: string;
 }
 
 export const CategorySchema = SchemaFactory.createForClass(Category);
