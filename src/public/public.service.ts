@@ -147,4 +147,23 @@ export class PublicService {
     }
     return subscriber;
   }
+
+  async recordView(slug: string, ip: string) {
+    const article = await this.articleModel.findOne({ slug }).exec();
+    if (article) {
+      if (!article.viewedByIPs) {
+        article.viewedByIPs = [];
+      }
+      if (!article.views) {
+        article.views = 0;
+      }
+      
+      if (!article.viewedByIPs.includes(ip)) {
+        article.viewedByIPs.push(ip);
+        article.views += 1;
+        await article.save();
+      }
+    }
+    return { success: true };
+  }
 }

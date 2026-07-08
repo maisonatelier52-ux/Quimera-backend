@@ -40,6 +40,12 @@ export class Article {
 
   @Prop({ default: '' })
   keywords: string;
+
+  @Prop({ default: 0 })
+  views: number;
+
+  @Prop({ type: [String], default: [] })
+  viewedByIPs: string[];
 }
 
 export const ArticleSchema = SchemaFactory.createForClass(Article);

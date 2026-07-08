@@ -1,4 +1,4 @@
-import { Controller, Get, Post, Param, NotFoundException, Body, Query } from '@nestjs/common';
+import { Controller, Get, Post, Param, NotFoundException, Body, Query, Ip } from '@nestjs/common';
 import { PublicService } from './public.service';
 
 @Controller('api/public')
@@ -77,5 +77,10 @@ export class PublicController {
   @Post('subscribe')
   async subscribe(@Body() body: { name: string; email: string }) {
     return this.publicService.subscribe(body.name, body.email);
+  }
+
+  @Post('articles/:slug/view')
+  async recordView(@Param('slug') slug: string, @Ip() ip: string) {
+    return this.publicService.recordView(slug, ip || 'unknown');
   }
 }
